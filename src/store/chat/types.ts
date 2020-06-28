@@ -6,12 +6,13 @@ export interface Message {
 }
 
 export interface ChatState {
-  messageInput: string,
+  messageInput: string;
   messages: Message[];
 }
 
 // Describing the different ACTION NAMES available
 export const SEND_MESSAGE = "SEND_MESSAGE";
+export const UPDATE_MESSAGE = "UPDATE_MESSAGE";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 
 interface SendMessageAction {
@@ -26,4 +27,12 @@ interface DeleteMessageAction {
   };
 }
 
-export type ChatActionTypes = SendMessageAction | DeleteMessageAction;
+interface UpdateMessageAction {
+  type: typeof UPDATE_MESSAGE;
+  data: string;
+}
+
+export type ChatActionTypes =
+  | SendMessageAction
+  | UpdateMessageAction
+  | DeleteMessageAction;

@@ -1,8 +1,9 @@
 import {
-  ChatState,
-  SEND_MESSAGE,
-  DELETE_MESSAGE,
   ChatActionTypes,
+  ChatState,
+  DELETE_MESSAGE,
+  SEND_MESSAGE,
+  UPDATE_MESSAGE,
 } from "./types";
 
 const initialState: ChatState = {
@@ -25,6 +26,11 @@ export function chatReducer(
       return {
         messageInput: "",
         messages: [...state.messages, action.payload],
+      };
+    case UPDATE_MESSAGE:
+      return {
+        ...state,
+        messageInput: action.data,
       };
     case DELETE_MESSAGE:
       return {

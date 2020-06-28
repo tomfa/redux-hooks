@@ -1,9 +1,17 @@
 import {
   ChatActionTypes,
   Message,
-  SEND_MESSAGE,
   DELETE_MESSAGE,
+  UPDATE_MESSAGE,
+  SEND_MESSAGE,
 } from "./types";
+
+export function updateMessage(inoutValue: string): ChatActionTypes {
+  return {
+    type: UPDATE_MESSAGE,
+    data: inoutValue,
+  };
+}
 
 export function sendMessage(newMessage: Message): ChatActionTypes {
   return {
