@@ -6,7 +6,13 @@ import {
 } from "./types";
 
 const initialState: ChatState = {
-  messages: [],
+  messages: [
+    {
+      user: "The Grid",
+      message: "Welcome to the chat, enjoy your stay.",
+      timestamp: 1593383935739,
+    },
+  ],
 };
 
 export function chatReducer(
