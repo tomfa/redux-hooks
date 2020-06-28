@@ -6,6 +6,7 @@ import {
 } from "./types";
 
 const initialState: ChatState = {
+  messageInput: "",
   messages: [
     {
       user: "The Grid",
@@ -22,10 +23,12 @@ export function chatReducer(
   switch (action.type) {
     case SEND_MESSAGE:
       return {
+        messageInput: "",
         messages: [...state.messages, action.payload],
       };
     case DELETE_MESSAGE:
       return {
+        messageInput: state.messageInput,
         messages: state.messages.filter(
           (message) => message.timestamp !== action.meta.timestamp
         ),

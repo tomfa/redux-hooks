@@ -6,6 +6,7 @@ export interface Message {
 }
 
 export interface ChatState {
+  messageInput: string,
   messages: Message[];
 }
 
