@@ -39,7 +39,18 @@
       "last 1 safari version"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{css,js,jsx,ts,tsx,html}": "prettier --write"
+  },
   "devDependencies": {
-    "@types/react-redux": "^7.1.9"
+    "@types/react-redux": "^7.1.9",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5"
   }
 }
