@@ -1,25 +1,33 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { RootState } from "../../store";
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 
 import { sendMessage, updateMessage } from "../../store/chat/actions";
 import "./ChatInput.css";
 
-interface OwnProps {}
-type DispatchProps = ReturnType<typeof mapDispatchToProps>;
-type StateProps = ReturnType<typeof mapStateToProps>;
-type Props = DispatchProps & StateProps & OwnProps;
+const ChatInterface: React.FC = () => {
+  const message = useSelector((state: RootState) => state.chat.messageInput);
+  const user = useSelector((state: RootState) => state.system.userName);
+  const dispatch = useDispatch();
+  const send = useCallback(
+    ({ message, user }) =>
+      message &&
+      dispatch(
+        sendMessage({
+          message,
+          user,
+          timestamp: new Date().getTime(),
+        })
+      ),
+    [dispatch]
+  );
 
-const ChatInterface: React.FC<Props> = ({
-  user,
-  message,
-  updateMessage,
-  send,
-}) => {
-  const onChange = (event: React.SyntheticEvent<{ value: string }>) => {
-    updateMessage(event.currentTarget.value);
-  };
+  const onChange = useCallback(
+    (event: React.SyntheticEvent<{ value: string }>) => {
+      dispatch(updateMessage(event.currentTarget.value));
+    },
+    [dispatch]
+  );
 
   function keyPress(e: React.KeyboardEvent<any>) {
     if (e.key === "Enter") {
@@ -46,25 +54,4 @@ const ChatInterface: React.FC<Props> = ({
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  send: ({ message, user }: { message: string; user: string }) =>
-    message &&
-    dispatch(
-      sendMessage({
-        message,
-        user,
-        timestamp: new Date().getTime(),
-      })
-    ),
-  updateMessage: (message: string) => dispatch(updateMessage(message)),
-});
-
-const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  user: state.system.userName,
-  message: state.chat.messageInput,
-});
-
-export default connect<StateProps, DispatchProps, OwnProps, RootState>(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatInterface);
+export default ChatInterface;
