@@ -1,49 +1,26 @@
-import React, { useCallback } from "react";
-import { RootState } from "../../store";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React from "react";
 
-import { sendMessage, updateMessage } from "../../store/chat/actions";
 import "./ChatInput.css";
+import { useChatInput } from "../../store/chat/hooks";
+import { useAuth } from "../../store/system/hooks";
 
 const ChatInterface: React.FC = () => {
-  const message = useSelector((state: RootState) => state.chat.messageInput);
-  const user = useSelector((state: RootState) => state.system.userName);
-  const dispatch = useDispatch();
-  const send = useCallback(
-    ({ message, user }) =>
-      message &&
-      dispatch(
-        sendMessage({
-          message,
-          user,
-          timestamp: new Date().getTime(),
-        })
-      ),
-    [dispatch]
-  );
+  const { inputValue, setInputValue, submit } = useChatInput();
+  const { userName } = useAuth();
 
-  const onChange = useCallback(
-    (event: React.SyntheticEvent<{ value: string }>) => {
-      dispatch(updateMessage(event.currentTarget.value));
-    },
-    [dispatch]
-  );
+  const onChange = (event: React.SyntheticEvent<{ value: string }>) =>
+    setInputValue(event.currentTarget.value);
 
-  function keyPress(e: React.KeyboardEvent<any>) {
-    if (e.key === "Enter") {
-      send({ message, user });
-    }
-  }
+  const keyPress = (e: React.KeyboardEvent<any>) =>
+    e.key === "Enter" && submit();
 
-  function buttonClick(e: React.MouseEvent<any>) {
-    send({ message, user });
-  }
+  const buttonClick = (e: React.MouseEvent<any>) => submit();
 
   return (
     <div className="chat-interface">
-      <h3>User: {user} </h3>
+      <h3>User: {userName} </h3>
       <input
-        value={message}
+        value={inputValue}
         onChange={onChange}
         onKeyPress={keyPress}
         className="chat-input"
