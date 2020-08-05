@@ -1,0 +1,14 @@
+export const NOISE_MIN_LEVEL = 0;
+export const NOISE_MAX_LEVEL = 100;
+export const BASS_FUZZ_MIN = 0;
+export const BASS_FUZZ_MAX = 100;
+export const BASS_BEAT_MIN = 0;
+export const BASS_BEAT_MAX = 4;
+export const BASS_BEAT_LENGTH_MS_MIN = 1;
+export const BASS_BEAT_LENGTH_MS_MAX = 1000;
+export const PITCH_FUZZ_MIN = 0;
+export const PITCH_FUZZ_MAX = 100;
+export const PITCH_BEAT_MIN = 0;
+export const PITCH_BEAT_MAX = 24;
+export const PITCH_BEAT_LENGTH_MS_MIN = 1;
+export const PITCH_BEAT_LENGTH_MS_MAX = 1000;
