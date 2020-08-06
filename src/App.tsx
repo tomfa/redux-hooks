@@ -1,13 +1,10 @@
 import React from "react";
+import { ColorBox } from "./clips/cube/index";
 
 import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">Chat log</header>
-    </div>
-  );
+  return <ColorBox />;
 }
 
 export default App;
